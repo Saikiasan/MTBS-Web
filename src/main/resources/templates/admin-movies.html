@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Movies - MTBS Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .admin-nav { display: flex; gap: 1rem; align-items: center; }
+        .admin-nav a { color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+        .admin-nav a:hover { color: var(--primary-color); }
+        .admin-section { background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .table th, .table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .table th { color: var(--primary-color); }
+        .action-btn { padding: 0.5rem 1rem; font-size: 0.8rem; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-edit { background: #ffc107; color: #000; }
+        .btn-delete { background: #dc3545; color: #fff; border: none; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/admin" class="navbar-brand">MTBS Admin</a>
+        <div class="admin-nav">
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/bookings">Bookings</a>
+            <a href="/admin/movies" style="color:var(--primary-color)">Movies</a>
+            <a href="/admin/theaters">Theaters</a>
+            <a href="/admin/showtimes">Showtimes</a>
+            <a href="/" style="margin-left: 2rem; color: var(--primary-color);">View Site &rarr;</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div th:if="${message}" class="alert-success" style="margin-bottom: 1rem;">
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="admin-section">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Manage Movies</h2>
+                <a th:href="@{/admin/movies/new}" class="btn" style="width: auto;">Add New Movie</a>
+            </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="movie : ${movies}">
+                        <td th:text="${movie.id}">1</td>
+                        <td th:text="${movie.title}">Movie Title</td>
+                        <td th:text="${movie.rating}">8.5</td>
+                        <td>
+                            <a th:href="@{/admin/movies/edit/{id}(id=${movie.id})}" class="action-btn btn-edit">Edit</a>
+                            <form th:action="@{/admin/movies/delete/{id}(id=${movie.id})}" method="post" style="display:inline;">
+                                <button type="submit" class="action-btn btn-delete" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

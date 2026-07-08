@@ -26,23 +26,13 @@ public class MovieController {
         return "index";
     }
 
-    @GetMapping("/book/{id}")
-    public String bookMovie(@PathVariable Long id, Model model) {
+    @GetMapping("/movies/{id}")
+    public String movieDetails(@PathVariable Long id, Model model) {
         Movie movie = movieService.getMovieById(id);
         if (movie == null) return "redirect:/";
         model.addAttribute("movie", movie);
-        return "book";
-    }
-
-    @PostMapping("/book/confirm")
-    public String confirmBooking(@RequestParam String customerName,
-                                 @RequestParam String movieTitle,
-                                 @RequestParam String seats,
-                                 @RequestParam Double totalPrice,
-                                 RedirectAttributes redirectAttributes) {
-        Booking booking = new Booking(customerName, movieTitle, seats, totalPrice);
-        bookingRepository.save(booking);
-        redirectAttributes.addFlashAttribute("message", "Booking Confirmed Successfully for " + movieTitle + "! Enjoy the show.");
-        return "redirect:/";
+        // showtime grouping is handled in the template or via another service, 
+        // but let's just pass the movie for now. We can inject ShowtimeService here if needed.
+        return "movie-detail";
     }
 }
