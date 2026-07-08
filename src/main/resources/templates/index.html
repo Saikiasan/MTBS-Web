@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTBS - Movie Ticket Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">MTBS Web</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#">Now Showing</a>
+            <a href="#">Coming Soon</a>
+            <a href="#">Offers</a>
+            <a th:href="@{/admin}">Admin Dashboard</a>
+            <input type="text" class="nav-search" placeholder="Search movies...">
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Experience Cinema</h1>
+            <p>Book your tickets for the latest blockbusters and premium viewing experiences. Grab your popcorn, the show is about to start.</p>
+            <a href="#" class="btn" style="display:inline-block; width:auto; padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px;">View Showtimes</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="ad-banner">
+            <h2>WEEKEND BLOCKBUSTER SALE</h2>
+            <p>Use code <strong>WEEKEND50</strong> to get 50% off on all popcorn and soda combos when you book 2 or more tickets!</p>
+        </div>
+
+        <h2 style="margin-bottom: 2rem; font-size: 2rem; display: flex; align-items: center; gap: 1rem;">
+            Trending Now <span style="font-size: 1rem; font-weight: normal; color: var(--primary-color); cursor: pointer;">View All &rarr;</span>
+        </h2>
+
+        <div th:if="${message}" class="alert-success">
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="movie-grid">
+            <div th:each="movie : ${movies}" class="movie-card">
+                <img th:src="${movie.image}" alt="Movie Poster" class="movie-poster" onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster'">
+                <div class="movie-info">
+                    <div>
+                        <h2 class="movie-title" th:text="${movie.title}">Movie Title</h2>
+                        <div class="movie-rating">⭐ <span th:text="${movie.rating}">8.5</span> / 10</div>
+                        <p class="movie-desc" th:text="${movie.description}" style="font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></p>
+                    </div>
+                    <a th:href="@{/book/{id}(id=${movie.id})}" class="btn">Book Tickets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>MTBS Web</h2>
+                <p>Your ultimate destination for booking movie tickets online. Enjoy seamless bookings, exclusive offers, and the best cinema experience directly from your screen.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Subscribe to Offers</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem;">Get the latest movie updates and exclusive discounts right in your inbox.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Enter your email...">
+                    <button type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 MTBS Web. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
