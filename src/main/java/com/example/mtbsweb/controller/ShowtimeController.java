@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ShowtimeController {
     private final ShowtimeService showtimeService;
+    private final com.example.mtbsweb.repository.BookingRepository bookingRepository;
 
-    public ShowtimeController(ShowtimeService showtimeService) {
+    public ShowtimeController(ShowtimeService showtimeService, com.example.mtbsweb.repository.BookingRepository bookingRepository) {
         this.showtimeService = showtimeService;
+        this.bookingRepository = bookingRepository;
     }
 
     @GetMapping("/showtime/{id}/book")
@@ -30,8 +32,7 @@ public class ShowtimeController {
                                  @org.springframework.web.bind.annotation.RequestParam String phone,
                                  @org.springframework.web.bind.annotation.RequestParam String seats,
                                  @org.springframework.web.bind.annotation.RequestParam Double totalPrice,
-                                 org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes,
-                                 com.example.mtbsweb.repository.BookingRepository bookingRepository) {
+                                 org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes) {
         
         Showtime showtime = showtimeService.getShowtimeById(showtimeId);
         if(showtime == null) return "redirect:/";
