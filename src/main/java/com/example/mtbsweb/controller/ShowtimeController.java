@@ -37,7 +37,7 @@ public class ShowtimeController {
         Showtime showtime = showtimeService.getShowtimeById(showtimeId);
         if(showtime == null) return "redirect:/";
         
-        String bookingRef = "MTBS-" + java.util.UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        String bookingRef = "CINE-" + java.util.UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         
         com.example.mtbsweb.model.Booking booking = new com.example.mtbsweb.model.Booking(
             bookingRef, showtime, customerName, email, phone,

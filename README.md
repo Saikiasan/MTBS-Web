@@ -1,6 +1,6 @@
-# Movie Ticket Booking System (MTBS)
+# Cine Book (Movie Ticket Booking System)
 
-A comprehensive, industry-grade Movie Ticket Booking System developed for a Master's Level Academic Project. The system allows users to browse movies, discover theaters, select specific showtimes, and book tickets through a modern, responsive UI. It also features a robust Admin Dashboard with visual analytics, data management, and booking tracking.
+A comprehensive, industry-grade Cine Book developed for a Master's Level Academic Project. The system allows users to browse movies, discover theaters, select specific showtimes, and book tickets through a modern, responsive UI. It also features a robust Admin Dashboard with visual analytics, data management, and booking tracking.
 
 ## Table of Contents
 1. [Project Purpose](#project-purpose)

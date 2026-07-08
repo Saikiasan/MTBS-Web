@@ -1,6 +1,6 @@
-# System Architecture & Technical Specifications
+# Cine Book Web Architecture & Technical Specifications
 
-This document outlines the internal architecture, design patterns, and entity relationships of the Movie Ticket Booking System (MTBS). It is intended for developers, evaluators, and academic reviewers.
+This document outlines the internal architecture, design patterns, and entity relationships of the Cine Book. It is intended for developers, evaluators, and academic reviewers.
 
 ## 1. High-Level Architecture
 
