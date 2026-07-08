@@ -51,7 +51,7 @@
                         <div class="movie-rating">⭐ <span th:text="${movie.rating}">8.5</span> / 10</div>
                         <p class="movie-desc" th:text="${movie.description}" style="font-size: 0.9rem; color: #ccc; margin-top: 0.5rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"></p>
                     </div>
-                    <a th:href="@{/book/{id}(id=${movie.id})}" class="btn">Book Tickets</a>
+                    <a th:href="@{/movies/{id}(id=${movie.id})}" class="btn">Book Tickets</a>
                 </div>
             </div>
         </div>

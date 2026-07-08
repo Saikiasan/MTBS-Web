@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showtimes - MTBS Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .admin-nav { display: flex; gap: 1rem; align-items: center; }
+        .admin-nav a { color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+        .admin-nav a:hover { color: var(--primary-color); }
+        .admin-section { background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 12px; margin-bottom: 2rem; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .table th, .table td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .table th { color: var(--primary-color); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/admin" class="navbar-brand">MTBS Admin</a>
+        <div class="admin-nav">
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/bookings">Bookings</a>
+            <a href="/admin/movies">Movies</a>
+            <a href="/admin/theaters">Theaters</a>
+            <a href="/admin/showtimes" style="color:var(--primary-color)">Showtimes</a>
+            <a href="/" style="margin-left: 2rem; color: var(--primary-color);">View Site &rarr;</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="admin-section">
+            <h2 style="margin-bottom:1rem;">All Showtimes</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Movie</th>
+                        <th>Theater</th>
+                        <th>Hall</th>
+                        <th>Date & Time</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="st : ${showtimes}">
+                        <td th:text="${st.id}">1</td>
+                        <td th:text="${st.movie.title}">Inception</td>
+                        <td th:text="${st.hall.theater.name}">PVR IMAX</td>
+                        <td th:text="${st.hall.name}">Screen 1</td>
+                        <td th:text="${st.showDate + ' ' + st.showTime}">2026-10-12 14:00</td>
+                        <td th:text="${'$' + st.price}">$15.0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

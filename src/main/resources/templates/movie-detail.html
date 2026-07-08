@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${movie.title} + ' - MTBS'">Movie Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .movie-header { display: flex; gap: 3rem; margin-bottom: 4rem; }
+        .movie-poster-large { width: 300px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .movie-details h1 { font-size: 3rem; margin-bottom: 1rem; color: #fff; }
+        .movie-rating { font-size: 1.2rem; color: #fbbf24; margin-bottom: 1.5rem; }
+        .movie-desc { font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); }
+        .showtimes-section { background: rgba(255,255,255,0.02); border-radius: 12px; padding: 2rem; border: 1px solid rgba(255,255,255,0.05); }
+        .theater-showtimes { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .theater-name { font-size: 1.3rem; color: #fff; margin-bottom: 1rem; }
+        .time-slots { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .time-slot { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--primary-color); color: #fff; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.2s; }
+        .time-slot:hover { background: var(--primary-color); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">MTBS Web</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/theaters">Theaters</a>
+            <a th:href="@{/admin}">Admin Dashboard</a>
+            <input type="text" class="nav-search" placeholder="Search movies...">
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="movie-header">
+            <img th:src="${movie.image}" alt="Poster" class="movie-poster-large">
+            <div class="movie-details">
+                <h1 th:text="${movie.title}">Movie Title</h1>
+                <div class="movie-rating">⭐ <span th:text="${movie.rating}">8.5</span> / 10 &nbsp;&nbsp;|&nbsp;&nbsp; 2h 30m</div>
+                <p class="movie-desc" th:text="${movie.description}">Description</p>
+            </div>
+        </div>
+
+        <div class="showtimes-section">
+            <h2 style="margin-bottom: 2rem;">Available Showtimes</h2>
+            
+            <p style="color: var(--text-muted);">Please select a theater and time below to proceed with booking.</p>
+            <!-- In a real app we'd group showtimes by date and theater. Here we'll just mock a list of showtimes for this movie -->
+            
+            <div class="theater-showtimes" th:each="entry : ${groupedShowtimes}">
+                <div class="theater-name" th:text="${#temporals.format(entry.key, 'EEEE, dd MMM yyyy')}">Date</div>
+                <div class="time-slots">
+                    <a th:each="st : ${entry.value}" th:href="@{/showtime/{id}/book(id=${st.id})}" class="time-slot" th:title="${st.hall.theater.name + ' - ' + st.hall.name}">
+                        <span th:text="${st.showTime}">10:00</span>
+                        <div style="font-size: 0.7rem; font-weight: normal; margin-top: 2px;" th:text="${st.hall.theater.name}">PVR</div>
+                    </a>
+                </div>
+            </div>
+            
+            <div th:if="${groupedShowtimes.isEmpty()}" style="color: var(--text-muted); font-style: italic;">
+                No showtimes currently scheduled for this movie.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theaters - MTBS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .theater-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+        .theater-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s; }
+        .theater-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
+        .theater-img { width: 100%; height: 200px; object-fit: cover; }
+        .theater-info { padding: 1.5rem; }
+        .theater-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; color: #fff; }
+        .theater-address { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+        .facilities { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .facility-badge { background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">MTBS Web</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/theaters" style="color:var(--primary-color)">Theaters</a>
+            <a th:href="@{/admin}">Admin Dashboard</a>
+            <input type="text" class="nav-search" placeholder="Search movies...">
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 style="margin-bottom: 2rem; font-size: 2.5rem;">Available Theaters</h2>
+        
+        <div class="theater-grid">
+            <div class="theater-card" th:each="theater : ${theaters}">
+                <img th:src="${theater.imageUrl}" alt="Theater Image" class="theater-img">
+                <div class="theater-info">
+                    <div class="theater-name" th:text="${theater.name}">PVR IMAX</div>
+                    <div class="theater-address" th:text="${theater.address + ', ' + theater.city}">Address</div>
+                    
+                    <div class="facilities">
+                        <span class="facility-badge" th:each="facility : ${#strings.arraySplit(theater.facilities, ',')}" th:text="${#strings.trim(facility)}">IMAX</span>
+                    </div>
+                    
+                    <button class="btn" style="width:100%">View Showtimes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

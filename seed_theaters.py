@@ -44,7 +44,7 @@ today = date.today()
 dates = [today, today + timedelta(days=1), today + timedelta(days=2)]
 times = ['10:00:00', '13:30:00', '17:00:00', '20:30:00', '22:45:00']
 
-for movie_id in range(1, 59):
+for movie_id in range(1, 58):
     num_showtimes = random.randint(5, 12)
     for _ in range(num_showtimes):
         h_id = random.randint(1, total_halls)

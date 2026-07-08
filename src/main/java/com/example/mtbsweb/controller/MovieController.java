@@ -14,10 +14,12 @@ public class MovieController {
 
     private final MovieService movieService;
     private final BookingRepository bookingRepository;
+    private final com.example.mtbsweb.service.ShowtimeService showtimeService;
 
-    public MovieController(MovieService movieService, BookingRepository bookingRepository) {
+    public MovieController(MovieService movieService, BookingRepository bookingRepository, com.example.mtbsweb.service.ShowtimeService showtimeService) {
         this.movieService = movieService;
         this.bookingRepository = bookingRepository;
+        this.showtimeService = showtimeService;
     }
 
     @GetMapping("/")
@@ -31,8 +33,7 @@ public class MovieController {
         Movie movie = movieService.getMovieById(id);
         if (movie == null) return "redirect:/";
         model.addAttribute("movie", movie);
-        // showtime grouping is handled in the template or via another service, 
-        // but let's just pass the movie for now. We can inject ShowtimeService here if needed.
+        model.addAttribute("groupedShowtimes", showtimeService.getGroupedShowtimesByMovie(id));
         return "movie-detail";
     }
 }
